@@ -1,2 +1,2 @@
 def function_D():
- print(“D)”
+ print(“D”)
