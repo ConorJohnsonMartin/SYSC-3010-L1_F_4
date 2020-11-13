@@ -14,8 +14,8 @@ def readServerRPi():
     get_data=requests.get(NEW_URL).json()
     channel_id=get_data['channel']['id']
     field_1=get_data['feeds']
-    return (field_1)
-
+    return (field_1)[0]
+ 
 def transmission():
     while True:
         moisture = 1
@@ -33,8 +33,15 @@ def transmission():
             print ("connection failed")
         break
 
-if __name__ == '__main__':
-    readServerRPi()
+while True:    
+    currentID = readServerRPi()['entry_id']
+    field = readServerRPi()
+    
+    if field['entry_id'] > (currentID):
+        currentID = field['entry_id']
+        if field['field_1'] == '5':
+            transmission()
+            print(field['field_2'])
 
 
 
