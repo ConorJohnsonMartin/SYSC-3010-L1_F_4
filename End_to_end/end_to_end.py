@@ -5,7 +5,7 @@ import http.client
 import time
 
 #Lab2Part3
-key = "H8QD218BNTIQL7OQ"
+key = "LQ1LYNA564IB0EX5"
 def readServerRPi():
     URL='https://api.thingspeak.com/channels/1155565/feeds.json?api_key=8JDWE6GONX7QWNAR&results=2'
     KEY='8JDWE6GONX7QWNAR'
@@ -33,7 +33,7 @@ def transmission():
             print ("connection failed")
         break
 
-while True:    
+while True:
     currentID = readServerRPi()['entry_id']
     field = readServerRPi()
     
@@ -42,12 +42,6 @@ while True:
         if field['field_1'] == '5':
             transmission()
             print(field['field_2'])
-
-
-
-
-
-
 
 
 
