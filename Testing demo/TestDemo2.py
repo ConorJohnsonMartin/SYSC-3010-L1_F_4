@@ -41,7 +41,7 @@ transmission(4, 'test')
 broken = 0
 while(True):
     broken +=1
-    if broken == 2:
+    if broken == 200:
         break
     if readHeadlessPi()['entry_id'] == (currentID+1):
         break
