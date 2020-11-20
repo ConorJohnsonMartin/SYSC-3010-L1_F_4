@@ -1,7 +1,5 @@
 from tkinter import *
 from tkinter import ttk
-import tkinter as tk
-from tkinter import messagebox
 from data_transmission import giveWater
 from data_transmission import givepHSuppliment
 from data_transmission import plant
