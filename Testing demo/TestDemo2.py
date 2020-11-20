@@ -3,9 +3,11 @@ import json
 import urllib.parse
 import http.client
 import time
+
 expectedMoisture = 1
-expectedpH = 7.0
-plant = "rose"
+expectedpH = 7
+plant = "Rose"
+
 def transmission(field1 = None, field2= None, field3= None, field4= None, field5= None, field6= None, field7= None, field8= None):
     key = "H8QD218BNTIQL7OQ"
     params = urllib.parse.urlencode({'field1': field1, 'field2': field2, 'field3': field3, 'field4': field4, 'field5': field5, 'field6': field6, 'field7': field7, 'field8': field8, 'key':key })
@@ -39,7 +41,7 @@ transmission(4, 'test')
 broken = 0
 while(True):
     broken +=1
-    if broken == 200:
+    if broken == 2:
         break
     if readHeadlessPi()['entry_id'] == (currentID+1):
         break
@@ -47,32 +49,43 @@ while(True):
 
 print(readHeadlessPi()['field1'])
 print(readHeadlessPi()['field2'])
-moisture = readHeadlessPi()['field1']
-pH = readHeadlessPi()['field2']
+moisture = int(readHeadlessPi()['field1'])
+pH = float (readHeadlessPi()['field2'])
+
 def compareMoisture():
-    if moisture == expectedMoisture:
-        return 1
+    if (moisture == 1):
+        z=1
     else:
-        return 0
+        z=0
+    return z
+
 def comparepH():
-    if(expectedpH-0.5 > pH > expectedpH+0.5):
+    if(expectedpH - 0.5 < pH) & (pH < expectedpH + 0.5):
         return 1
     else:
         return 0
+
 def giveWater():
+    x = ' '
     if(compareMoisture() == 0):
-        print("Water plEase")
+        x = "Water plEase"
     else:
-        print("No water needed")
+        x = "No water needed"
+    return x
+
 def givepHSuppliment():
+    y = ' '
     if(comparepH() == 0):
-        print("Give pH suppliment")
+        y = "Give pH suppliment"
     else:
-        print("No action needed")
+        y = "pH is sufficient"
+    return y
+
 def setPlant():
     userPlant = plant
+
 def printMoisture():
     print(moisture)
+
 def printpH():
     print(pH)
-
