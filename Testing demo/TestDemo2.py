@@ -1,15 +1,17 @@
+# @author Chris Atkinson, Kevin Belanger
+
 import requests
 import json
 import urllib.parse
 import http.client
 import time
 
-expectedMoisture = 1
-expectedpH = 7
+expectedpH = 7  # Values from the database
 plant = "Rose"
 
+#  This function checks that the connection to the server is good. and sends a confirmation message back to the headless RPi
 def transmission(field1 = None, field2= None, field3= None, field4= None, field5= None, field6= None, field7= None, field8= None):
-    key = "H8QD218BNTIQL7OQ"
+    key = "H8QD218BNTIQL7OQ"  # Headless RPi write key
     params = urllib.parse.urlencode({'field1': field1, 'field2': field2, 'field3': field3, 'field4': field4, 'field5': field5, 'field6': field6, 'field7': field7, 'field8': field8, 'key':key })
     headers = {"Content-typZZe": "application/x-www-form-urlencoded","Accept": "text/plain"}
     conn = http.client.HTTPConnection("api.thingspeak.com:80")
@@ -21,9 +23,10 @@ def transmission(field1 = None, field2= None, field3= None, field4= None, field5
     except:
         print("connection failed")
 
+# This function requests the data from the headless RPi and returns it.
 def readHeadlessPi():
-    url = 'https://api.thingspeak.com/channels/1160322/feeds.json?api_key=HTDCLD7F8EWCLS4L&results=2'
-    key = 'HTDCLD7F8EWCLS4L'
+    url = 'https://api.thingspeak.com/channels/1160322/feeds.json?api_key=HTDCLD7F8EWCLS4L&results=2' # Server RPi read URL
+    key = 'HTDCLD7F8EWCLS4L'  # Server RPi read key
     header = '&results=1'
 
     finalURL = url + key + header
@@ -38,54 +41,65 @@ currentID = readHeadlessPi()['entry_id']
 
 transmission(4, 'test')
 
-broken = 0
+broken = 0 # This variable stops the while loop from being infinite.
+# This while loop runs until either the timer times out or it gets a reading from the headless RPi.
 while(True):
     broken +=1
-    if broken == 200:
+    if broken == 200:  # if there is no connection for 200 seconds then the loop ends.
         break
-    if readHeadlessPi()['entry_id'] == (currentID+1):
+    if readHeadlessPi()['entry_id'] == (currentID+1):  # if the RPi establishes a connection and reads values then the loop stops.
         break
     time.sleep(0.1)
 
-print(readHeadlessPi()['field1'])
+print(readHeadlessPi()['field1'])  # These two prints confirm that the RPi has read the correct information.
 print(readHeadlessPi()['field2'])
-moisture = int(readHeadlessPi()['field1'])
+moisture = int(readHeadlessPi()['field1'])  # Set moisture and pH variables to be used in later functions.
 pH = float (readHeadlessPi()['field2'])
 
+# This function compares the moisture that was found by the sensor and compares it ot the expected moisture which is 1
+# and returns 1 or 0 accordingly.
 def compareMoisture():
     if (moisture == 1):
-        z=1
+        return 1  # If the soil is moist return 1.
     else:
-        z=0
-    return z
+        return 0  # If not return 0.
 
+# This function compares the pH to the expected pH value that depends on the plant.
+# Returns 1 if pH is good and 0 if not.
 def comparepH():
     if(expectedpH - 0.5 < pH) & (pH < expectedpH + 0.5):
-        return 1
+        return 1  # If pH is within expected range return 1.
     else:
-        return 0
+        return 0  # If not return 0.
 
+# This function checks the compareMoisture() function to see if the plant needs water
+# and returns the message required.
 def giveWater():
-    x = ' '
+    x = ' '  # Create a local variable that stores the string for later use.
     if(compareMoisture() == 0):
-        x = "Water plEase"
+        x = "Water plEase"  # If compareMoisture() is 0 that means it needs water so the function sets x accordingly.
     else:
-        x = "No water needed"
+        x = "No water needed"  # If compareMoisture() is 1 then no action is required.
     return x
 
+# This function checks if the comparepH() function has flagged a need for pH supplements or not
+# and returns the message required.
 def givepHSuppliment():
     y = ' '
     if(comparepH() == 0):
-        y = "Give pH suppliment"
+        y = "Give pH suppliment"  # If comparepH() is 0 that means it needs a pH supplement so the function sets y accordingly.
     else:
-        y = "pH is sufficient"
+        y = "pH is sufficient"  # If compareMoisture() is 1 then no action is required.
     return y
 
+# Gets user data to set the plant that they have.
 def setPlant():
     userPlant = plant
 
+# prints the current moisture
 def printMoisture():
     print(moisture)
 
+# prints the current pH
 def printpH():
     print(pH)
