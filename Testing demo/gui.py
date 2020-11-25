@@ -1,70 +1,91 @@
+# L1-F-4 Water plEase
+# @description For the GUI implementation of Water plEase
+# @author Kevin Belanger 101121709
+# @version Version 1, 24 November 2020
+
+# Import statements
 from tkinter import *
 from tkinter import ttk
 from data_transmission import giveWater
 from data_transmission import givepHSuppliment
-from data_transmission import plant
+from data_transmission import plant1
+from data_transmission import plant2
+from data_transmission import plant3
+from data_transmission import pH
 
+# Sets our pH value to a string which is read from the data_transmission class
+pH = str(pH)
+
+# Creates the window with title "Water plEase"
 window = Tk()
 window.title("Water plEase")
 
+# Creates 6 tabs for window
 tab_control = ttk.Notebook(window)
-
 tab1 = ttk.Frame(tab_control)
 tab2 = ttk.Frame(tab_control)
 tab3 = ttk.Frame(tab_control)
-tab4 = ttk.Frame(tab_control)
-tab5 = ttk.Frame(tab_control)
-tab6 = ttk.Frame(tab_control)
 
+# Adds titles for each of the 6 tabs
 tab_control.add(tab1, text='Plant 1')
 tab_control.add(tab2, text='Plant 2')
 tab_control.add(tab3, text='Plant 3')
-tab_control.add(tab4, text='Plant 4')
-tab_control.add(tab5, text='Plant 5')
-tab_control.add(tab6, text='Plant 6')
 
-lbl1 = Label(tab1, text= 'Plant type: ' + plant)
+# On tab 1, creates text attribute and lists it with the corresponding variable for readability
+# x is a placeholder for the tab creation
+lbl1 = Label(tab1, text='Plant type: ')
 lbl1.grid(column=0, row=0)
-lbl1 = Label(tab1, text= 'Water status: ' + giveWater())
+lbl1 = Label(tab1, text=plant1)
+lbl1.grid(column=1, row=0)
+lbl1 = Label(tab1, text='Water status: ')
 lbl1.grid(column=0, row=1)
-lbl1 = Label(tab1, text= 'pH Status: ' + givepHSuppliment())
+lbl1 = Label(tab1, text=giveWater())
+lbl1.grid(column=1, row=1)
+lbl1 = Label(tab1, text='pH Status: ')
 lbl1.grid(column=0, row=2)
+lbl1 = Label(tab1, text=givepHSuppliment())
+lbl1.grid(column=1, row=2)
+lbl1 = Label(tab1, text='pH: ')
+lbl1.grid(column=0, row=3)
+lbl1 = Label(tab1, text=pH)
+lbl1.grid(column=1, row=3)
 
-lbl2 = Label(tab2, text= 'Plant type: ' + plant)
+# On tab 2, creates text attribute and lists it with the corresponding variable for readability
+lbl2 = Label(tab2, text='Plant type: ')
 lbl2.grid(column=0, row=0)
-lbl2 = Label(tab2, text= 'Water status: ' + giveWater())
+lbl2 = Label(tab2, text=plant2)
+lbl2.grid(column=1, row=0)
+lbl2 = Label(tab2, text='Water status: ')
 lbl2.grid(column=0, row=1)
-lbl2 = Label(tab2, text= 'pH Status: ' + givepHSuppliment())
+lbl2 = Label(tab2, text=giveWater())
+lbl2.grid(column=1, row=1)
+lbl2 = Label(tab2, text='pH Status: ')
 lbl2.grid(column=0, row=2)
+lbl2 = Label(tab2, text=givepHSuppliment())
+lbl2.grid(column=1, row=2)
+lbl2 = Label(tab2, text='pH: ')
+lbl2.grid(column=0, row=3)
+lbl2 = Label(tab2, text=pH)
+lbl2.grid(column=1, row=3)
 
-lbl3 = Label(tab3, text= 'Plant type: ' + plant)
+# On tab 3, creates text attribute and lists it with the corresponding variable for readability
+lbl3 = Label(tab3, text='Plant type: ')
 lbl3.grid(column=0, row=0)
-lbl3 = Label(tab3, text= 'Water status: ' + giveWater())
+lbl3 = Label(tab3, text=plant3)
+lbl3.grid(column=1, row=0)
+lbl3 = Label(tab3, text='Water status: ')
 lbl3.grid(column=0, row=1)
-lbl3 = Label(tab3, text= 'pH Status: ' + givepHSuppliment())
+lbl3 = Label(tab3, text=giveWater())
+lbl3.grid(column=1, row=1)
+lbl3 = Label(tab3, text='pH Status: ')
 lbl3.grid(column=0, row=2)
+lbl3 = Label(tab3, text=givepHSuppliment())
+lbl3.grid(column=1, row=2)
+lbl3 = Label(tab3, text='pH: ')
+lbl3.grid(column=0, row=3)
+lbl3 = Label(tab3, text=pH)
+lbl3.grid(column=1, row=3)
 
-lbl4 = Label(tab4, text= 'Plant type: ' + plant)
-lbl4.grid(column=0, row=0)
-lbl4 = Label(tab4, text= 'Water status: ' + giveWater())
-lbl4.grid(column=0, row=1)
-lbl4 = Label(tab4, text= 'pH Status: ' + givepHSuppliment())
-lbl4.grid(column=0, row=2)
-
-lbl5 = Label(tab5, text= 'Plant type: ' + plant)
-lbl5.grid(column=0, row=0)
-lbl5 = Label(tab5, text= 'Water status: ' + giveWater())
-lbl5.grid(column=0, row=1)
-lbl5 = Label(tab5, text= 'pH Status: ' + givepHSuppliment())
-lbl5.grid(column=0, row=2)
-
-lbl6 = Label(tab6, text= 'Plant type: ' + plant)
-lbl6.grid(column=0, row=0)
-lbl6 = Label(tab6, text= 'Water status: ' + giveWater())
-lbl6.grid(column=0, row=1)
-lbl6 = Label(tab6, text= 'pH Status: ' + givepHSuppliment())
-lbl6.grid(column=0, row=2)
-
+# Executes pop up of window
 tab_control.pack(expand=1, fill='both')
-
 window.mainloop()
