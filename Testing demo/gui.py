@@ -15,13 +15,13 @@ pH = str(pH)
 window = Tk()
 window.title("Water plEase")
 
-# Creates 6 tabs for window
+# Creates 3 tabs for window
 tab_control = ttk.Notebook(window)
 tab1 = ttk.Frame(tab_control)
 tab2 = ttk.Frame(tab_control)
 tab3 = ttk.Frame(tab_control)
 
-# Adds titles for each of the 6 tabs
+# Adds titles for each of the 3 tabs
 tab_control.add(tab1, text='Plant 1')
 tab_control.add(tab2, text='Plant 2')
 tab_control.add(tab3, text='Plant 3')
