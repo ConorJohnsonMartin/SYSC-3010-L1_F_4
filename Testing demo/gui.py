@@ -6,12 +6,7 @@
 # Import statements
 from tkinter import *
 from tkinter import ttk
-from data_transmission import giveWater
-from data_transmission import givepHSuppliment
-from data_transmission import plant1
-from data_transmission import plant2
-from data_transmission import plant3
-from data_transmission import pH
+from data_transmission import giveWater, givepHSuppliment, plant1, plant2, plant3, pH
 
 # Sets our pH value to a string which is read from the data_transmission class
 pH = str(pH)
