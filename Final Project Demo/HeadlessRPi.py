@@ -78,3 +78,8 @@ def transmission():
 while True:
     currentID = readServerRPi()['entry_id']
     field = readServerRPi()
+    if field['entry_id'] > (currentID):
+        currentID = field['entry_id']
+        if field['field1'] == '5':  # Checks if the server RPi is sending a request to this RPi
+            transmission()
+            print(field['field2'])
