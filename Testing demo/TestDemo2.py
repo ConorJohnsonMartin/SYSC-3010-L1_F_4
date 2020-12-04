@@ -10,19 +10,21 @@ import http.client
 import time
 import sqlite3
 
+# set up a cursor for the database
 dbconnect = sqlite3.connect("/Users/User/Downloads/SQLiteStudio/plant_database.db");
 dbconnect.row_factory = sqlite3.Row;
 cursor = dbconnect.cursor();
-
+# select the whole database
 cursor.execute('SELECT * FROM plant_database')
 
-
+# Set up arrays for the values in the database
 id = []
 plantName = []
 expectedMoisture = []
 pHmin = []
 pHmax = []
 
+# Populate the values in the arrays with values from the database
 for row in cursor:
     id.append(row['ID'])
     plantName.append(row['Plant Name'])
